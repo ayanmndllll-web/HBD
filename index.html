@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Card for Diya</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amaze&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    overflow:hidden;
+    touch-action: none; 
+}
+
+/* --- Background Visuals --- */
+.bg-blur {
+    position: absolute;
+    inset: 0;
+    background-image: url('welcome_bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    filter: blur(1px) brightness(0.8);
+    z-index: -2;
+    transform: scale(1.1);
+}
+
+#fireworks-canvas {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.page-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    z-index: -1;
+}
+
+/* --- Pages --- */
+.page{
+    display:none;
+    width:100%;
+    height:100vh;
+    position:absolute;
+    inset:0;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.active{ display:flex; }
+
+/* --- Story Container --- */
+.story-container {
+    position: relative;
+    max-width: 90%;
+    width: 380px;
+    min-height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.story-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    line-height: 1.6;
+    font-size: 16px;
+    backdrop-filter: blur(10px);
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* --- Slide to Reveal Cover --- */
+.slide-cover {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.slide-cover.opened { transform: translateX(105%); }
+
+.nav-hint {
+    margin-top: 20px;
+    font-size: 12px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#welcome-title{
+    font-family:'Amaze', cursive;
+    font-size:64px;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.slide-up-anim{ animation: slideIn 1.4s ease-out forwards; }
+
+@keyframes slideIn{
+    from{ opacity:0; transform: translateY(80px); }
+    to{ opacity:1; transform: translateY(0); }
+}
+
+.arrow-flow { display: inline-block; animation: flow 1.5s infinite; }
+@keyframes flow {
+    0% { transform: translateX(0); opacity: 0.5; }
+    50% { transform: translateX(10px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0.5; }
+}
+</style>
+</head>
+
+<body onmousedown="handleStart(event)" ontouchstart="handleStart(event)" onmouseup="handleEnd(event)" ontouchend="handleEnd(event)">
+
+    <div class="page active" id="page0">
+        <div class="bg-blur"></div> <canvas id="fireworks-canvas"></canvas>
+        <h1 id="welcome-title" class="slide-up-anim">Welcome Diya</h1>
+        <p class="nav-hint">Swipe Left to Begin ←</p>
+    </div>
+
+    <div class="page" id="page1">
+        <video class="page-video" muted loop playsinline><source src="video1.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                Today is the birthday of someone truly special,<br>
+                someone I met for the very first time on a day I will never forget.<br>
+                I was standing outside with a big umbrella,<br>
+                just in the middle of an ordinary moment—<br>
+                and when I looked to the side,<br>
+                I saw you.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page2">
+        <video class="page-video" muted loop playsinline><source src="video2.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                I had never seen you before,<br>
+                yet something about you felt different—<br>
+                calm, bright, and full of good energy.<br>
+                You seemed so confident and positive<br>
+                that I instantly felt inspired.<br>
+                I didn’t know why,<br>
+                but that small moment stayed in my heart.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page3">
+        <video class="page-video" muted loop playsinline><source src="video3.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                Some time later, I saw you again—<br>
+                in a completely different place,<br>
+                where I was working as a small helper.<br>
+                I handed you a simple drink,<br>
+                and you smiled and spoke so kindly.<br>
+                I never imagined that the person<br>
+                I once noticed from far away<br>
+                would one day become someone<br>
+                I’d talk to and laugh with.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page4">
+        <video class="page-video" muted loop playsinline><source src="video4.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                When you officially joined that place,<br>
+                everything felt lighter and happier.<br>
+                That year became one of the most memorable years of my life,<br>
+                because of your presence.<br>
+                So many ordinary days<br>
+                became special<br>
+                just because you were around.<br>
+                Those memories still mean a lot to me.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page5">
+        <video class="page-video" muted loop playsinline><source src="video5.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                Then one day,<br>
+                you had to leave.<br>
+                Life took you on your own journey,<br>
+                and I stayed behind with a lot of memories<br>
+                and a lot of gratitude.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page6">
+        <video class="page-video" muted loop playsinline><source src="video6.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Tap to Open <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box">
+                I just want you to know this—<br>
+                you are one of the most special people in my life.<br>
+                Friends like you are rare,<br>
+                and I feel lucky<br>
+                to have met you in my story.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Left for Next</p>
+    </div>
+
+    <div class="page" id="page7">
+        <video class="page-video" muted loop playsinline><source src="video7.mp4" type="video/mp4"></video>
+        <div class="story-container">
+            <div class="slide-cover" onclick="this.classList.add('opened')"><span>Birthday Wishes <span class="arrow-flow">➔</span></span></div>
+            <div class="story-box" style="text-align: center;">
+                <h2 style="color:#38bdf8; margin:0;">Happy Birthday, DIYA 🎂🤍</h2><br>
+                I wish you a life full of growth, success, and happiness. <br>
+                Always stay the amazing person you are.<br>
+                Take good care of yourself.
+            </div>
+        </div>
+        <p class="nav-hint">Swipe Right to go Back</p>
+    </div>
+
+<script>
+let current = 0;
+const total = 7;
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Swipe Logic
+function handleStart(e) {
+    touchStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+}
+
+function handleEnd(e) {
+    touchEndX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > 50) { // Threshold
+        if (diff > 0) nextPage(); // Left swipe
+        else prevPage(); // Right swipe
+    }
+}
+
+function nextPage() {
+    if (current < total) {
+        document.getElementById("page" + current).classList.remove("active");
+        current++;
+        updateView();
+    }
+}
+
+function prevPage() {
+    if (current > 0) {
+        document.getElementById("page" + current).classList.remove("active");
+        current--;
+        updateView();
+    }
+}
+
+function updateView() {
+    const nextP = document.getElementById("page" + current);
+    nextP.classList.add("active");
+    
+    // Play video
+    const vid = nextP.querySelector('video');
+    if (vid) vid.play();
+
+    // Welcome title animation
+    if (current === 0) {
+        const title = document.getElementById("welcome-title");
+        title.classList.remove("slide-up-anim");
+        void title.offsetWidth; 
+        title.classList.add("slide-up-anim");
+    }
+}
+
+// Fireworks Logic
+const canvas = document.getElementById('fireworks-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+class Particle {
+    constructor(x, y, color, velocityX, velocityY) {
+        this.x = x; this.y = y; this.color = color;
+        this.velocityX = velocityX; this.velocityY = velocityY;
+        this.alpha = 1; this.friction = 0.95; this.gravity = 0.2;
+    }
+    draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = this.color; ctx.fill();
+    }
+    update() {
+        this.velocityX *= this.friction; this.velocityY *= this.friction;
+        this.velocityY += this.gravity; this.x += this.velocityX;
+        this.y += this.velocityY; this.alpha -= 0.01;
+    }
+}
+
+function createFirework() {
+    if(current !== 0) return; 
+    const x = Math.random() * canvas.width;
+    const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    const burstY = Math.random() * (canvas.height / 2);
+    for (let i = 0; i < 30; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 5;
+        particles.push(new Particle(x, burstY, color, Math.cos(angle) * speed, Math.sin(angle) * speed));
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+        if (p.alpha <= 0) particles.splice(i, 1);
+        else { p.update(); p.draw(); }
+    });
+    if (Math.random() < 0.05) createFirework();
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
